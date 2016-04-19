@@ -7,24 +7,29 @@
         android:onClick="createJson"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="CreateJson!" />
+        android:textAllCaps="false"
+        android:text="CreateJson"/>
 
     <Button
         android:onClick="createJson1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="CreateJson1!" />
+        android:textAllCaps="false"
+        android:text="CreateJson1"/>
 
     <Button
-        android:onClick="readJson"
+        android:onClick="createJson2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="ReadJson!" />
+        android:textAllCaps="false"
+        android:text="CreateJson2"/>
 
     <Button
-        android:onClick="jsonTools"
+        android:onClick="createJson3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="JsonTools!" />
+        android:textAllCaps="false"
+        android:text="CreateJson3"/>
+
 
 </LinearLayout>
