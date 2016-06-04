@@ -4,24 +4,28 @@
     android:layout_height="match_parent">
 
     <Button
+        android:textAllCaps="false"
         android:onClick="createJson"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="CreateJson!" />
 
     <Button
+        android:textAllCaps="false"
         android:onClick="createJson1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="CreateJson1!" />
 
     <Button
+        android:textAllCaps="false"
         android:onClick="readJson"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="ReadJson!" />
 
     <Button
+        android:textAllCaps="false"
         android:onClick="jsonTools"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

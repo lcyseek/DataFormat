@@ -20,13 +20,15 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void createJson(View view) throws JSONException {
-        // 首先最外层是{}，是创建一个对象
-//        JSONObject jsonObject = new JSONObject();
 
-//        jsonObject.put("name","陆春阳");
-//        jsonObject.put("age",12);
-//        jsonObject.put("isMan",true);
-//        System.out.println(jsonObject);
+        //首先最外层是{}，是创建一个对象
+        JSONObject jsonObject = new JSONObject();
+
+        jsonObject.put("name","陆春阳");
+        jsonObject.put("age",12);
+        jsonObject.put("isMan",true);
+
+        System.out.println(jsonObject);
 
 
         JSONObject person = new JSONObject();
@@ -52,6 +54,7 @@ public class MainActivity extends AppCompatActivity {
         int age = person.getInt("age");
 
         System.out.println("json-->"+person+" age:"+age);
+
     }
 
 
@@ -62,6 +65,7 @@ public class MainActivity extends AppCompatActivity {
         JSONStringer stringer = new JSONStringer();
         stringer.object();
         stringer.key("phone");
+        
 
         // 键phone的值是数组。array和endArray必须配对使用
         stringer.array();
