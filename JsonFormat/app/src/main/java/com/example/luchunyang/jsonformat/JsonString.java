@@ -8,7 +8,8 @@ public class JsonString {
         return "{  \n" +
                 "  id: '100000',  \n" +
                 "  text: '廊坊银行总行',  \n" +
-                "  children: [  \n" +
+                "  children: " +
+                "   [  \n" +
                 "    {  \n" +
                 "      id: '110000',  \n" +
                 "      text: '廊坊分行',  \n" +

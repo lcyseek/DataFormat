@@ -1,72 +1,64 @@
 package com.example.luchunyang.jsonformat;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+import java.util.Set;
 
-public class Main2Activity extends AppCompatActivity {
+public class GsonActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main2);
+        setContentView(R.layout.activity_gson);
     }
 
     public void createJson(View view) {
         //Gson是主类，它暴露出fromJson()和toJson()方法进行转换工作，对于默认实现，可以直接创建对象，
         //也可以使用GsonBuilder类提供的实用选项进行转换，比如整齐打印，字段命名转换，排除字段，日期格式化，等等。
-
         Gson gson = new Gson();
+
+        //添加一个对象
         Person p = new Person();
         p.setAddress("gd");
         p.setAge(11);
         p.setName("lcy");
         p.setSex("man");//非序列化字段,不计入
-        System.out.println("===>"+gson.toJson(p));
 
-        List<Person> list = new ArrayList<>();
-        for (int i = 0; i < 4; i++) {
+        //Object-->json
+        String json = gson.toJson(p);
+        System.out.println(json);
+
+        //json-->Object
+        Person object = gson.fromJson(json,Person.class);
+        System.out.println("解析出来的Person:"+ object);
+
+
+        //添加list
+        ArrayList<Person> list = new ArrayList<>();
+        for (int i = 0; i < 3; i++) {
             Person person = new Person();
             person.setName("小李飞刀"+i);
             person.setAge(i);
             person.setAddress("china"+i);
             list.add(person);
         }
+        json = gson.toJson(list);
+        System.out.println(json);
 
-        String str = gson.toJson(list);
-        System.out.println("json:"+str);
-        //上面的代码重点是Gson对象，它提供了toJason()方法将对象转换成Json字符串
-
-        //Gson提供了fromJson()方法来实现从Json相关对象到java实体的方法。
-        Person person = getPerson(gson.toJson(p));
-        System.out.println("解析出的Person:"+person);
-
-        List<Person> persons = getPersonList(str);
-        System.out.println("解析出的所有Person");
-        for (int i = 0; i < persons.size(); i++) {
-            Person p1 = persons.get(i);
-            System.out.println(p1);
+        //解析list.可以看到代码使用了TypeToken，它是gson提供的数据类型转换器，可以支持各种数据集合类型转换。
+        List<Person> lists = gson.fromJson(json,new TypeToken<List<Person>>(){}.getType());
+        for (int i = 0; i < lists.size(); i++) {
+            System.out.println(lists.get(i));
         }
-    }
 
-    public Person getPerson(String jsonStr){
-        Person person = new Gson().fromJson(jsonStr,Person.class);
-        return person;
-    }
-
-    public List<Person> getPersonList(String jsonStr){
-        //可以看到代码使用了TypeToken，它是gson提供的数据类型转换器，可以支持各种数据集合类型转换。
-        List<Person> list = new Gson().fromJson(jsonStr,new TypeToken<List<Person>>(){}.getType());
-        return list;
     }
 
     public void createJson1(View view) {
@@ -78,42 +70,30 @@ public class Main2Activity extends AppCompatActivity {
         String nameJson = gson.toJson(names);
         System.out.println(idJson);
         System.out.println(nameJson);
-
-        int [] getIds = gson.fromJson(idJson,int[].class);
-        String [] getNames = gson.fromJson(nameJson,String[].class);
-
-        for (int i = 0; i < getIds.length; i++) {
-            System.out.println(getIds[i]);
-        }
-
-        for (int i = 0; i < getNames.length; i++) {
-            System.out.println(getNames[i]);
-        }
     }
 
     public void createJson2(View view) {
+        HashMap<String,String> map = new HashMap<>();
+        map.put("name","seek");
+        map.put("phone","07850-666");
+        map.put("email","luchunyang@gmail.com");
+
         Gson gson = new Gson();
+        String json = gson.toJson(map);
 
-        Map<String,String> colours = new HashMap<>();
-        colours.put("BLACK", "#000000");
-        colours.put("RED", "#FF0000");
-        colours.put("GREEN", "#008000");
-        colours.put("BLUE", "#0000FF");
-        colours.put("YELLOW", "#FFFF00");
-        colours.put("WHITE", "#FFFFFF");
-
-        String json = gson.toJson(colours);
         System.out.println(json);
 
-        Type type = new TypeToken<Map<String, String>>(){}.getType();
-        Map<String, String> map = gson.fromJson(json, type);
-        for (String key : map.keySet()) {
-            System.out.println(""+ key + " = " + map.get(key));
+        HashMap<String,String> maps =  gson.fromJson(json,map.getClass());
+        Set<String> keys = maps.keySet();
+        for (String key:keys){
+            System.out.println(""+key+"="+maps.get(key));
         }
+
     }
 
     public void createJson3(View view) {
         Gson gson = new Gson();
+
         Student student = new Student();
         student.id = 1;
         student.nickName = "乔晓松";
@@ -130,7 +110,7 @@ public class Main2Activity extends AppCompatActivity {
         books.add("生物");
         student.books = books;
         System.out.println("除了基本数据类型还包含了List集合:"+gson.toJson(student));
-
+        
 
         HashMap<String, String> booksMap = new HashMap<String, String>();
         booksMap.put("1", "数学");
@@ -145,6 +125,5 @@ public class Main2Activity extends AppCompatActivity {
 
         Student studentG = gson.fromJson(result, Student.class);
         System.out.println("解析出的Student:"+studentG);
-
     }
 }
