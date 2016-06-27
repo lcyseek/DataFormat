@@ -107,7 +107,6 @@ public class JsonActivity extends AppCompatActivity {
         writer.name("email").beginArray().value("luchunyang@gmail.com").value("1352913549@qq.com").endArray();
         writer.endObject();
         writer.close();
-
         //从流中读取JSON数据，并且创建一个对象模型在内存中
         JsonReader reader = new JsonReader(new InputStreamReader(new FileInputStream(Environment.getExternalStorageDirectory()+"/abc.txt")));
         reader.beginObject();
